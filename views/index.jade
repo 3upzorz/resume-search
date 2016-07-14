@@ -1,0 +1,15 @@
+extends layout
+
+block content
+	h1= title
+	nav
+		a(href='profile/new') Add Profile
+
+	div#search-controls
+		h2 Search User
+		input#search.form-control(type='text', name='search',placeholder='Enter name, keywords, etc...')
+
+	div#search-results
+
+block scripts
+	script(type="text/javascript" src="/javascripts/search.js")

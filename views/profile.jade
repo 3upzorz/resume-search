@@ -1,0 +1,9 @@
+extends layout
+
+block content
+	h1 View Profile
+	nav
+		a(href='/') Search
+
+	h2= _source.name
+	a(href='/uploads/'+_source.resume download=_source.file) Resume/CV

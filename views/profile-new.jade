@@ -1,0 +1,18 @@
+extends layout
+
+block content
+	h1 Add New Profile
+	nav
+		a(href='/') Search
+
+	div#search-box
+		h2 Add Profile
+		form(method='POST' action='/profile' enctype='multipart/form-data')
+			div.form-group
+				label(for="name") Full Name
+				input#name.form-control(type='text', name='name', placeholder='Full Name')
+			div.form-group
+				label(for='resume') Resume/CV
+				input#resume(type='file' name='resume')
+			div.form-group
+				input.btn.btn-primary(type='submit', value='Add')
