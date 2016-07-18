@@ -6,7 +6,12 @@ var router = express.Router();
 
 /* GET search profiles. */
 router.get('/search', function(req, res, next) {
-	
+
+	console.log('QUERY\n', req.query);
+	if(!req.query.from){
+		req.query.from = 0;
+	}
+
 	var search = req.query.search;
 	var es = new elasticsearch.Client({
 		//TODO move these values to config
@@ -22,7 +27,10 @@ router.get('/search', function(req, res, next) {
 					parsed_resume:search
 				}
 			}
-		}
+		},
+		from: req.query.from,
+		size: req.query.size
+
 	})
 	.then(function(results){
 		res.send(results);

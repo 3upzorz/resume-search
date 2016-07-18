@@ -1,12 +1,15 @@
 extends layout
 
+block styles
+	link(rel='stylesheet', href='/stylesheets/search.css')
+
 block content
-	h1= title
+	h1 Resume Search
 	nav
 		a(href='profile/new') Add Profile
 
 	div#search-controls
-		h2 Search User
+		h2 Search Profile
 		input#search.form-control(type='text', name='search',placeholder='Enter name, keywords, etc...')
 
 	div#search-results

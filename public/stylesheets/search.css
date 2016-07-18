@@ -1,0 +1,28 @@
+.searchResults{
+	list-style: none;
+	padding:0;
+	margin:0;
+}
+
+.searchResultItem{
+	border-bottom: 1px solid #ccc;
+}
+
+.searchResultLink{
+	position: relative;
+	display: block;
+	padding:20px;
+}
+
+.searchResultLink:link,
+.searchResultLink:visited,
+.searchResultLink:hover,
+.searchResultLink:active{
+	text-decoration: none;
+}
+
+.searchResultLinkIcon{
+	position: absolute;
+	top:20px;
+	right: 20px;
+}
