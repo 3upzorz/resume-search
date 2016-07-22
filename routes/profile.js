@@ -57,6 +57,7 @@ router.post('/', upload.single('resume'), function(req, res, next) {
 				//create developer profile
 				es.create({
 					index:'profiles',
+					//TODO allow type to be a selectable value on the front end
 					type:'developer',
 					body:{
 						name: req.body.name,

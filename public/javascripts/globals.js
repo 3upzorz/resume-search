@@ -1,4 +1,4 @@
-var baseURL = "http://localhost:3000/";
+var baseURL = "http://localhost:8080/";
 
 var ajax = function(options){
 	if(options.url){
