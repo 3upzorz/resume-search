@@ -1,3 +1,4 @@
+console.log("ENV:\n",process.env);
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');

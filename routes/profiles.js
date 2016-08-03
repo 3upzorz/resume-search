@@ -1,26 +1,23 @@
 var express = require('express');
-var elasticsearch = require('elasticsearch');
+var elasticsearch = require('aws-es');
 var util = require('util');
+var esConf = require('../config/aws').es;
 
 var router = express.Router();
 
 /* GET search profiles. */
 router.get('/search', function(req, res, next) {
 
-	console.log('QUERY\n', req.query);
 	if(!req.query.from){
 		req.query.from = 0;
 	}
 
 	var search = req.query.search;
-	var es = new elasticsearch.Client({
-		//TODO move these values to config
-		host: 'localhost:9200',
-		log: 'error'
-	});
+	var es = new elasticsearch(esConf);
 
 	es.search({
 		index:'profiles',
+		type:'developer',
 		body:{
 			query:{
 				match:{
@@ -28,13 +25,15 @@ router.get('/search', function(req, res, next) {
 				}
 			}
 		},
-		from: req.query.from,
-		size: req.query.size
-
+		from: parseInt(req.query.from),
+		size: parseInt(req.query.size)
+	},function(err, results){
+		if(err){
+			console.error(err);
+			return res.send(err);
+		}
+		return res.send(results);
 	})
-	.then(function(results){
-		res.send(results);
-	});
 });
 
 module.exports = router;

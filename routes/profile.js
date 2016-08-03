@@ -1,5 +1,6 @@
 var express = require('express');
-var elasticsearch = require('elasticsearch');
+var elasticsearch = require('aws-es');
+var esConf = require('../config/aws').es;
 var util = require('util');
 var multer  = require('multer');
 var upload = multer({ dest: 'public/uploads/' });
@@ -8,11 +9,7 @@ var textract = require('textract');
 var router = express.Router();
 
 router.param('id', function(req, res, next, id){
-	var es = new elasticsearch.Client({
-		//TODO move these values to config
-		host: 'localhost:9200',
-		log: 'error'
-	});	
+	var es = new elasticsearch(esConf);	
 
 	es.get({
 		index:'profiles',
@@ -42,11 +39,7 @@ router.get('/:id', function(req, res, next) {
 /* POST create profile. */
 router.post('/', upload.single('resume'), function(req, res, next) {
 
-	var es = new elasticsearch.Client({
-		//TODO move these values to config
-		host: 'localhost:9200',
-		log: 'error'
-	});	
+	var es = new elasticsearch(esConf);
 	
 	if(req.file){
 		//extract text from uploaded resume file
@@ -55,7 +48,7 @@ router.post('/', upload.single('resume'), function(req, res, next) {
 				console.error(error);
 			}else{
 				//create developer profile
-				es.create({
+				es.index({
 					index:'profiles',
 					//TODO allow type to be a selectable value on the front end
 					type:'developer',
